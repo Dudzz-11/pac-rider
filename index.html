@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/estilo.css">
+    <title>Início Pac Rider</title>
+</head>
+<body>
+    <div id="homeScreen">
+        <img class="wallpaperMenu" src="assets/video/baackground-game.gif" alt="Cidade escura">
+        <button class="logoBtn">
+            <img src="assets/img/logo-pac-rider.png" alt="logo pac rider">
+        </button>
+        <h2 class="textStart">Clique na logo para iniciar!</h2>
+    </div>
+    <div id="login">
+        <div class="loginBox">
+            <h2>Faça seu login</h2>
+            <input type="text" id="usuario" placeholder="Nome de usuário">
+            <input type="password" id="password" placeholder="Senha">
+            <button class="btn btnLogin">Login</button>
+            <button class="btn btnRegister">Cadastre-se</button>
+            <button class="btn btnGuest">Jogar como convidado</button>
+            <p id="message"></p>
+        </div>
+    </div>
+    <div id="playGame">
+        <div class="play">
+            <img class="icon" src="assets/img/icon1-player.png" alt="ícone jogador">
+            <p>teste-nome</p>
+            <button><a href="game.html" target="_blank">Play</a></button>
+        </div>
+        <div class="rankingPlayers">
+            <h2>Ranking Jogadores</h2>
+            <div id="recordPlayer">
+                <img src="assets/img/icon2-player.png" alt="icon jogador 2">
+                <div class="info">    
+                    <p class="nick">nick-name</p>
+                    <p class="time">tempo:</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="js/pages/home.js"></script>
+</body>
+</html>

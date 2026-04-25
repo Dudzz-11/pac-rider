@@ -1,0 +1,282 @@
+@import url('https://fonts.googleapis.com/css2?family=New+Rocker&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    background-color: darkgrey;
+    min-height: 100vh;
+    font-family: "New Rocker", system-ui;
+}
+
+
+#homeScreen {
+    width: 100%;
+    height: 100vh;
+    background-size: cover;
+    background-position: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+}
+
+.wallpaperMenu {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+}
+
+.logoBtn {
+    position: absolute;
+    background: none;
+    border: none;
+    cursor: pointer;
+    width: auto;
+    height: auto;
+    transition: 0.5s;
+}
+
+.logoBtn:hover {
+    transform: scale(1.05);
+}
+
+.moved {
+    width: 200px;
+    height: 200px;
+    display: flex;
+    top: 16px;
+    left: 16px;
+}
+
+.textStart {
+    position: absolute;
+    bottom: 20%;
+    font-size: 50px;
+    color: white;
+    -webkit-text-stroke: 1px black;
+}
+
+.logoBtn img {
+    width: 800px;
+    max-width: 1000px;
+    height: auto;
+}
+
+button {
+    font-family: "New Rocker", system-ui;
+}
+
+#login {
+    position: absolute;
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    display: none;
+}
+
+.loginBox{
+    background: #4f4f4f;
+    background: linear-gradient(1deg,rgba(79, 79, 79, 1) 0%, rgba(189, 179, 179, 1) 100%);
+    border-radius: 10px;
+    padding: 40px;
+    width: 400px;
+    border-radius: 10px;
+    text-align: center;
+    box-shadow: 8px 10px rgba(0, 0, 0, 0.5);
+}
+
+.loginBox img {
+    width: 200px;
+}
+
+.loginBox h2 {
+    color: orange;
+    font-size: 40px;
+    margin-bottom: 24px;
+    -webkit-text-stroke: 1px black;
+}
+
+.loginBox input {
+    width: 100%;
+    padding: 16px;
+    margin: 8px 0;
+    background: #111;
+    border-radius: 8px;
+    color: orange;
+    font-size: 16px;
+    border: none;
+}
+
+#message {
+    color: orange;
+    font-size: 24px;
+    -webkit-text-stroke: 1px black;
+}
+
+.btn{
+    width: 100%;
+    padding: 16px;
+    margin-top: 8px;
+    background: black;
+    color: #dadada;
+    border: none;
+    cursor: pointer;
+    transition: 0.2s;
+    border-radius: 8px;
+}
+
+.btn:hover {
+    background: orange;
+    color: #4f4f4f;
+    transform: scale(1.05);
+}
+
+.icon {
+    width: 50px;
+}
+
+#playGame {
+    width: 800px;
+    height: auto;
+    position: absolute;
+    display: flex;
+    display: none;
+}
+
+.play {
+    width: 400px;
+    height: 400px;
+    margin: 8px;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 16px;
+    background: linear-gradient(1deg,rgba(79, 79, 79, 1) 0%, rgba(189, 179, 179, 1) 100%);
+    box-shadow: 8px 10px rgba(0, 0, 0, 0.5);
+}
+
+.play .icon {
+    width: 100px;
+    margin: 8px;
+
+}
+
+.play p {
+    font-size: 48px;
+}
+
+.play button {
+    background: orange;
+    border: none;
+    border-radius: 5px;
+    width: 100px;
+    height: 50px;
+    cursor: pointer;
+    box-shadow: 2px 2px rgba(0, 0, 0, 0.5);
+}
+
+.play button:hover {
+    background: #4f4f4f;
+    color: orange;
+    box-shadow: 2px 2px rgb(247, 160, 0, 0.5);
+}
+
+.play button a {
+    text-decoration: none;
+    color: #4f4f4f;
+}
+
+.play button a:hover {
+    color: orange;
+}
+
+.rankingPlayers {
+    width: 400px;
+    height: 400px;
+    margin: 8px;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    padding: 8px;
+    background: linear-gradient(1deg,rgba(79, 79, 79, 1) 0%, rgba(189, 179, 179, 1) 100%);
+    box-shadow: 8px 10px rgba(0, 0, 0, 0.5);
+}
+
+.rankingPlayers h2 {
+    font-size: 40px;
+    align-self: center;
+}
+
+#recordPlayer {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-top: 24px;
+    border-radius: 10px;
+    background: linear-gradient(93deg,rgba(255, 165, 1, 1) 0%, rgba(159, 150, 150, 1) 100%);
+}
+
+#recordPlayer img {
+    width: 80px;
+}
+
+.info {
+    display: flex;
+    gap: 8px;
+    font-size: 24px;
+}
+
+.nick {
+    color: #4f4f4f;
+}
+
+#gameArea {
+    display: flex;
+    flex-direction: row;
+    background: gray;
+    background-image: url(../assets/img/Paisagem\ urbana\ dos\ anos\ 80.png);
+    background-size: cover;
+    background-position: center;   
+    background-repeat: no-repeat;  
+    height: 100vh;                 
+    margin: 0;
+}
+
+#game {
+    width: 1600px;
+    height: 900px;
+    background: red;
+    background-image: url(../assets/img/street2.png);
+    display: flex;
+    flex-wrap: wrap;
+    position: relative;
+}
+
+#sideBar {
+    width: 100px;
+    height: 900px;
+    background-image: url(../assets/img/Pilha\ de\ ossos\ humanos\ detalhada.png);
+}
+
+#sideBar img {
+    width: 100px;
+    margin-top: 50px;
+}
+
+#sideBar p {
+    text-align: center;
+    font-size: 30px;
+    color: white;
+}
