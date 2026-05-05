@@ -15,9 +15,9 @@ player.style.top = (spawn.y * cellSize) + "px";
 
 game.appendChild(player);
 
-function movement() {
+function playerMovement() {
 
-    playerComputedStyle = window.getComputedStyle(player);
+    window.getComputedStyle(player);
 
     if (playerMovement.up) {
         const currentTop = textPositionToNumber(player.style.top || "0px");

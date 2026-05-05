@@ -1,13 +1,15 @@
 const randomwallsCount = 20;
 
-const motoclub = [0, 15];
+const motoClubPos = [0, 15];
 
-const [row, col] = motoclub;
+const motoClubCell = map[motoClubPos[0]][motoClubPos[1]];
+
+const [row, col] = motoClubPos;
 
 const cell = map[row][col];
 
 const motoclubImg = document.createElement("img");
-
+motoclubImg.id = "motoclub-gate";
 motoclubImg.src = "assets/img/buildings/dead-riders-mc-block.png";
 
 motoclubImg.style.width = "100px";
@@ -16,6 +18,7 @@ motoclubImg.style.height = "100px";
 cell.element.innerHTML = "";
 cell.element.appendChild(motoclubImg);
 
+const motoClubElement = motoclubImg;
 
 const wallElements = [];
 

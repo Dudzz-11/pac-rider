@@ -56,7 +56,7 @@ for (let i = 0; i < collectibleImages.length; i++) {
     });
 };
 
-function checkCollectibles() {
+function checkCollectiblesCollision() {
     collectibles.forEach(obj => {
         if (obj.collected) return;
 
@@ -71,6 +71,11 @@ function checkCollectibles() {
             collectSound.currentTime = 0;
             collectSound.play();
         }
+        if (collectedPieces === 5) {
+            motoclubImg.src = "assets/img/buildings/dead-riders-mc.png";
+            console.log("Motoclube Desbloqueado!");
+        }
+
     });
 };
 
@@ -78,10 +83,10 @@ function isCellBlocked(cell) {
     let wallCount = 0;
 
     const directions = [
-        [0,1],
-        [1,0],
-        [0,-1],
-        [-1,0]
+        [0, 1],
+        [1, 0],
+        [0, -1],
+        [-1, 0]
     ];
 
     directions.forEach(([dx, dy]) => {

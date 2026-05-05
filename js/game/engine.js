@@ -11,7 +11,8 @@ const cellSize = 100;
 
 const map = [];
 
-let lives = 1; 
+let isGameOver = false
+let lives = 1;
 let isInvincible = false;
 
 const livesText = document.getElementById("lives");
@@ -80,39 +81,39 @@ function isCollidingWithWall(player) {
 
 function getDistance(cellA, cellB) {
     return Math.abs(cellA.x - cellB.x) + Math.abs(cellA.y - cellB.y);
-}
+};
 
-const playerMovement = {
-    up : false,
-    right : false,
-    down : false,
-    left : false
+const playerDirections = {
+    up: false,
+    right: false,
+    down: false,
+    left: false
 };
 
 document.addEventListener("keydown", (event) => {
 
-   switch (event.key) {
+    switch (event.key) {
         case "w": {
             playerMovement.up = true
             break;
         }
 
         case "d": {
-             playerMovement.right = true
+            playerMovement.right = true
             break;
         }
 
         case "s": {
-             playerMovement.down = true
+            playerMovement.down = true
             break;
         }
 
         case "a": {
-             playerMovement.left = true
+            playerMovement.left = true
             break;
         }
     }
-    
+
 });
 
 document.addEventListener("keyup", (event) => {
@@ -124,35 +125,29 @@ document.addEventListener("keyup", (event) => {
         }
 
         case "d": {
-             playerMovement.right = false
+            playerMovement.right = false
             break;
         }
 
         case "s": {
-             playerMovement.down = false
+            playerMovement.down = false
             break;
         }
 
         case "a": {
-             playerMovement.left = false
+            playerMovement.left = false
             break;
         }
     }
 
 });
 
-let frameCount = 0;
-
-
 setInterval(() => {
-    movement()
-    checkCollectibles();
+    playerMovement()
+    checkCollectiblesCollision();
     checkEnemyCollision();
-
-    frameCount++;
-    if (frameCount % 10 === 0) {
-        updateEnemies();
-    };
+    updateEnemies();
+    checkMotoclubCollision();
 }, 40);
 
 function checkEnemyCollision() {
@@ -195,7 +190,7 @@ function externalCollision(elementA, elementB) {
         A.bottom < B.top ||
         A.left > B.right
     );
-}
+};
 
 function collisionSidesMap(elementA, elementB) {
     const elementAPosition = elementA.getBoundingClientRect();
@@ -219,4 +214,23 @@ function isOutOfBounds(player) {
         rect.top < gameRect.top ||
         rect.bottom > gameRect.bottom
     );
+};
+
+function checkMotoclubCollision() {
+    if (isGameOver) return;
+
+    if (externalCollision(player, motoclubImg)) {
+        if (collectedPieces >= 5) {
+            isGameOver = true;
+
+            alert("VOCÊ CONSEGUIU! A gangue está reunida.");
+
+            location.reload();
+        } else {
+            if (playerMovement.up) player.style.top = (textPositionToNumber(player.style.top) + playerSpeed) + "px";
+            if (playerMovement.down) player.style.top = (textPositionToNumber(player.style.top) - playerSpeed) + "px";
+            if (playerMovement.left) player.style.left = (textPositionToNumber(player.style.left) + playerSpeed) + "px";
+            if (playerMovement.right) player.style.left = (textPositionToNumber(player.style.left) - playerSpeed) + "px";
+        }
+    };
 };
