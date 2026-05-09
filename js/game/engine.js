@@ -20,14 +20,17 @@ const livesText = document.getElementById("lives");
 function takeDamage() {
     if (isInvincible) return;
 
-    if (lives === 0) {
+    if (lives <= 1) {
         gameOver();
     } else {
         lives--;
         if (livesText) livesText.innerText = lives;
-        triggerInvincibility();
+
         resetPlayerPosition();
-    }
+        resetAllEnemies();
+        triggerInvincibility();
+
+    };
 };
 
 function resetPlayerPosition() {
@@ -75,8 +78,40 @@ function createCells() {
 
 createCells();
 
-function isCollidingWithWall(player) {
-    return wallElements.some(wall => externalCollision(player, wall));
+function isCollidingWithWall(element, testDirection = undefined, testSpeed = undefined) {
+
+    if (testDirection && testSpeed) {
+        const elementRect = JSON.parse(JSON.stringify(element.getBoundingClientRect()))
+
+        switch (testDirection) {
+            case "up":
+                // elementClone.style.top = (textPositionToNumber(elementClone.style.top) - testSpeed) + "px";
+                elementRect.top = elementRect.top - testSpeed
+                break
+
+            case "right":
+                // elementClone.style.left = (textPositionToNumber(elementClone.style.left) + testSpeed) + "px";
+                elementRect.right = elementRect.right + testSpeed
+                break
+
+            case "down":
+                // elementClone.style.top = (textPositionToNumber(elementClone.style.top) + testSpeed) + "px";
+                elementRect.bottom = elementRect.bottom + testSpeed
+                break
+
+            case "left":
+                // elementClone.style.left = (textPositionToNumber(elementClone.style.left) - testSpeed) + "px";
+                elementRect.left = elementRect.left - testSpeed
+                break
+        }
+
+        // elementClone.id = "clone" + elementClone.id
+
+        return wallElements.some(wall => externalCollision(undefined, wall, elementRect, undefined));
+
+    } else {
+        return wallElements.some(wall => externalCollision(element, wall));
+    }
 };
 
 function getDistance(cellA, cellB) {
@@ -92,7 +127,7 @@ const playerDirections = {
 
 document.addEventListener("keydown", (event) => {
 
-    switch (event.key) {
+    switch (event.key.toLowerCase()) {
         case "w": {
             playerMovement.up = true
             break;
@@ -162,11 +197,9 @@ function textPositionToNumber(textPosition) {
     return parseFloat(textPosition.split("px")[0]);
 };
 
-function externalCollision(elementA, elementB) {
-
-    const rectA = elementA.getBoundingClientRect();
-    const rectB = elementB.getBoundingClientRect();
-
+function externalCollision(elementA, elementB, rectA = undefined, rectB = undefined) {
+    if (rectA == undefined) rectA = elementA.getBoundingClientRect();
+    if (rectB == undefined) rectB = elementB.getBoundingClientRect();
 
     const margin = 10;
 
@@ -177,12 +210,26 @@ function externalCollision(elementA, elementB) {
         right: rectA.right - margin
     };
 
+    // const A = {
+    //     top: rectA.top,
+    //     bottom: rectA.bottom,
+    //     left: rectA.left,
+    //     right: rectA.right  
+    // };
+
     const B = {
         top: rectB.top + margin,
         bottom: rectB.bottom - margin,
         left: rectB.left + margin,
         right: rectB.right - margin
     };
+
+    // const B = {
+    //     top: rectB.top ,
+    //     bottom: rectB.bottom,
+    //     left: rectB.left,
+    //     right: rectB.right
+    // };
 
     return !(
         A.top > B.bottom ||
@@ -191,6 +238,7 @@ function externalCollision(elementA, elementB) {
         A.left > B.right
     );
 };
+
 
 function collisionSidesMap(elementA, elementB) {
     const elementAPosition = elementA.getBoundingClientRect();

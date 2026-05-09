@@ -6,11 +6,21 @@ const enemyImages = [
     "../assets/img/enemys/cop-down-100.png"
 ];
 
+const enemiesSpeed = [3, 3.25, 3.5, 3.75, 4, 4.25];
+
 const enemiesAvailableDirections = [];
 
 const enemys = [];
 
 const emptyCellsEnemy = [];
+
+const enemiesCollisionDirections = {
+    enemy1: { up: false, right: false, down: false, left: false },
+    enemy2: { up: false, right: false, down: false, left: false },
+    enemy3: { up: false, right: false, down: false, left: false },
+    enemy4: { up: false, right: false, down: false, left: false },
+    enemy5: { up: false, right: false, down: false, left: false }
+};
 
 for (let row = 0; row < rows; row++) {
     for (let col = 0; col < cols; col++) {
@@ -60,131 +70,71 @@ for (let i = 0; i < enemyImages.length; i++) {
 };
 
 function updateEnemies() {
-    enemys.forEach(enemy => {
-        let enemyX = textPositionToNumber(enemy.element.style.left);
-        let enemyY = textPositionToNumber(enemy.element.style.top);
+    enemys.forEach((enemy, i) => {
+        let enemyLeftValue = textPositionToNumber(enemy.element.style.left);
+        let enemyTopValue = textPositionToNumber(enemy.element.style.top);
         let moveX = 0;
         let moveY = 0;
-        let speed = 5;
+        let speed = enemiesSpeed[i];
 
         const playerX = textPositionToNumber(player.style.left);
         const playerY = textPositionToNumber(player.style.top);
 
+        let xDirection = undefined;
 
-        if (playerX > enemyX + 5) moveX = speed;
-        else if (playerX < enemyX - 5) moveX = -speed;
+        if (playerX >= enemyLeftValue + 5) {
+            moveX = speed;
+            xDirection = "right";
+            enemy.element.src = "assets/img/enemys/cop-right-100.png";
 
-        enemy.element.style.left = (enemyX + moveX) + "px";
+        } else if (playerX <= enemyLeftValue - 5) {
+            moveX = -speed;
+            xDirection = "left";
+            enemy.element.src = "assets/img/enemys/cop-left-100.png";
+        }
+
+        // if (enemiesCollisionDirections["enemy" + (i + 1)][xDirection]) {
+        if (isCollidingWithWall (enemy.element, xDirection, speed)) {
+            enemy.element.style.left = (enemyLeftValue + (moveX * -1)) + "px";
+            enemiesCollisionDirections["enemy" + (i + 1)][xDirection] = false;
+        } else {
+            enemy.element.style.left = (enemyLeftValue + moveX) + "px";
+        }
 
         if (isCollidingWithWall(enemy.element) || isOutOfBounds(enemy.element)) {
-            enemy.element.style.left = enemyX + "px";
-
-            if (Math.abs(playerY - enemyY) < speed) {
-                moveY = speed;
-            }
-            moveX = 0;
+            enemy.element.style.left = enemyLeftValue + "px";
+            enemiesCollisionDirections["enemy" + (i + 1)][xDirection] = true;
         }
 
-        if (moveY === 0) {
-            if (playerY > enemyY + 5) moveY = speed;
-            else if (playerY < enemyY - 5) moveY = -speed;
+        let yDirection = undefined;
+
+        if (playerY >= enemyTopValue + 5) {
+            moveY = speed;
+            yDirection = "down";
+            enemy.element.src = "assets/img/enemys/cop-down-100.png";
+
+        } else if (playerY < enemyTopValue - 5) {
+            moveY = -speed;
+            yDirection = "up";
+            enemy.element.src = "assets/img/enemys/cop-up-100.png";
         }
 
-        enemy.element.style.top = (enemyY + moveY) + "px";
+        // if (enemiesCollisionDirections["enemy" + (i + 1)][xDirection]) {
+        if (isCollidingWithWall (enemy.element, yDirection, speed)) {
+            enemy.element.style.top = (enemyTopValue + (moveY * -1)) + "px";
+            enemiesCollisionDirections["enemy" + (i + 1)][yDirection] = false;
+        } else {
+            enemy.element.style.top = (enemyTopValue + moveY) + "px";
+        }
 
         if (isCollidingWithWall(enemy.element) || isOutOfBounds(enemy.element)) {
-            enemy.element.style.top = enemyY + "px";
-
-            if (moveX === 0 && Math.abs(playerX - enemyX) < speed) {
-                moveX = speed;
-                enemy.element.style.left = (enemyX + moveX) + "px";
-                if (isCollidingWithWall(enemy.element)) {
-                    enemy.element.style.left = (enemyX - moveX) + "px";
-                }
-            }
-            moveY = 0;
+            enemy.element.style.top = enemyTopValue + "px";
+            enemiesCollisionDirections["enemy" + (i + 1)][yDirection] = true;
         }
-
-        if (moveX > 0) enemy.element.src = "assets/img/enemys/cop-right-100.png";
-        else if (moveX < 0) enemy.element.src = "assets/img/enemys/cop-left-100.png";
-        else if (moveY > 0) enemy.element.src = "assets/img/enemys/cop-down-100.png";
-        else if (moveY < 0) enemy.element.src = "assets/img/enemys/cop-up-100.png";
     });
 };
 
-// function updateEnemies() {
-//     enemys.forEach(enemy => {
-//         let enemyX = textPositionToNumber(enemy.element.style.left);
-//         let enemyY = textPositionToNumber(enemy.element.style.top);
 
-//         let moveX = 0;
-//         let moveY = 0;
-//         let speed = 4;
-
-//         const playerX = textPositionToNumber(player.style.left);
-//         const playerY = textPositionToNumber(player.style.top);
-
-//         let enemyAvailableDirections = undefined;
-
-//         const filteredDirections = enemiesAvailableDirections.filter((enemyDirectionsItem) => { 
-//             return enemyDirectionsItem.enemyId == enemy.id
-//         });
-
-//         if (filteredDirections.length > 0) {
-//             enemyAvailableDirections = filteredDirections[0]
-//         } else {
-//             enemyAvailableDirections = {
-//                 enemyId: enemy.id,
-//                 top: true,
-//                 right: true,
-//                 bottom: true,
-//                 left: true
-//             }
-//         };
-
-//         let enemyXDirection = undefined
-
-//         if (playerX > enemyX) {
-//             moveX = speed;
-//             enemyXDirection = "right"
-//         } else {
-//             moveX = -speed;
-//             enemyXDirection = "left"
-//         }
-//         enemy.element.style.left = (enemyX + moveX) + "px";
-
-//         if (isCollidingWithWall(enemy.element) || isOutOfBounds(enemy.element)) {
-//             enemy.element.style.left = enemyX + "px";
-//             if (enemyXDirection == "right") enemyAvailableDirections.right = false
-//             else enemyAvailableDirections.left = false
-//         };
-
-//         let enemyYDirection = undefined
-
-//         if (playerY > enemyY) {
-//             moveY = speed;
-//             enemyYDirection = "top"
-//         } else {
-//             moveY = -speed;
-//             enemyYDirection = "bottom"
-//         }
-//         enemy.element.style.top = (enemyY + moveY) + "px";
-
-
-//         if (isCollidingWithWall(enemy.element) || isOutOfBounds(enemy.element)) {
-//             enemy.element.style.top = enemyY + "px";
-//             if (enemyYDirection == "top") enemyAvailableDirections.top = false
-//             else enemyAvailableDirections.bottom = false
-//         };
-
-//         enemiesAvailableDirections.push(enemyAvailableDirections);
-
-//         if (moveX > 0) enemy.element.src = "assets/img/enemys/cop-right-100.png";
-//         else if (moveX < 0) enemy.element.src = "assets/img/enemys/cop-left-100.png";
-//         else if (moveY > 0) enemy.element.src = "assets/img/enemys/cop-down-100.png";
-//         else if (moveY < 0) enemy.element.src = "assets/img/enemys/cop-up-100.png";
-//     });
-// };
 
 function resetAllEnemies() {
     enemys.forEach(enemy => {
@@ -214,3 +164,5 @@ function takeDamage() {
         triggerInvincibility();
     }
 };
+
+//usar clone pra verificar se vou bater
