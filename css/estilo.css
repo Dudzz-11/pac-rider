@@ -258,7 +258,7 @@ button {
     width: 1600px;
     height: 900px;
     background: red;
-    background-image: url(../assets/img/street2.png);
+    background-image: url(../assets/img/ground.png);
     display: flex;
     flex-wrap: wrap;
     position: relative;

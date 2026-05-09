@@ -201,7 +201,7 @@ function externalCollision(elementA, elementB, rectA = undefined, rectB = undefi
     if (rectA == undefined) rectA = elementA.getBoundingClientRect();
     if (rectB == undefined) rectB = elementB.getBoundingClientRect();
 
-    const margin = 10;
+    const margin = 5;
 
     const A = {
         top: rectA.top + margin,
@@ -210,26 +210,12 @@ function externalCollision(elementA, elementB, rectA = undefined, rectB = undefi
         right: rectA.right - margin
     };
 
-    // const A = {
-    //     top: rectA.top,
-    //     bottom: rectA.bottom,
-    //     left: rectA.left,
-    //     right: rectA.right  
-    // };
-
     const B = {
         top: rectB.top + margin,
         bottom: rectB.bottom - margin,
         left: rectB.left + margin,
         right: rectB.right - margin
     };
-
-    // const B = {
-    //     top: rectB.top ,
-    //     bottom: rectB.bottom,
-    //     left: rectB.left,
-    //     right: rectB.right
-    // };
 
     return !(
         A.top > B.bottom ||

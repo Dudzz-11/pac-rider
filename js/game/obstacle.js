@@ -39,7 +39,7 @@ walls.forEach(([row, col]) => {
 
     const wall = document.createElement("img");
 
-    wall.src = "assets/img/buildings/building1.png";
+    wall.src = "assets/img/fixed-wall.png";
 
     wall.style.width = "100px";
     wall.style.height = "100px";
@@ -82,7 +82,7 @@ for (let i = 0; i < randomwallsCount; i++) {
     cell.type = "wall";
 
     const wall = document.createElement("img");
-    wall.src = "assets/img/buildings/building3.png";
+    wall.src = "assets/img/wooden-crate.png";
     wall.style.width = "100px";
     wall.style.height = "100px";
 
