@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/estilo.css">
+    <title>Pac Rider</title>
+</head>
+<body id="gameArea">
+    <aside id="sideBar">
+        <img src="assets/img/items/icon-life.png" alt="icóne de vida jogador">
+        <p id="lives">1</p>
+        <img src="assets/img/items/piston.png" alt="número de peças coletadas">
+        <p id="collectedParts">0</p>
+        <img src="assets/img/items/time.png" alt="timer">
+        <p id="timer">0:00</p>
+    </aside>
+    <main id="game">
+
+        <div id="victoryScreen" class="victory">
+            <div class="victoryBox">
+                <h2>BOM TRABALHO!</h2>
+                <p>Você recuperou as peças do MC.</p>
+                <div class="timeDisplay">
+                    ⏱ <span id="finalTimeDisplay">00:00</span>
+                </div>
+                <button class="btn btnPrimary" onclick="retryGame()">Tentar novamente</button>
+                <button class="btn btnSecondary" onclick="goToMenu()">Menu Principal</button>
+            </div>
+        </div>
+
+        <div id="defeatScreen" class="defeat">
+            <div class="defeatBox">
+                <h2>GAME OVER</h2>
+                <p>Você foi pego. Tente de novo!</p>
+                <div class="timeDisplay">
+                    ⏱ <span id="defeatTimeDisplay">00:00</span>
+                </div>
+                <button class="btn btnPrimary" onclick="retryGame()">Tentar novamente</button>
+                <button class="btn btnSecondary" onclick="goToMenu()">Menu Principal</button>
+            </div>
+        </div>
+
+    </main>
+    <script src="js/game/engine.js"></script>
+    <script src="js/game/obstacle.js"></script>
+    <script src="js/game/player.js"></script>
+    <script src="js/game/item.js"></script>
+    <script src="js/game/enemy.js"></script>
+</body>
+</html>
