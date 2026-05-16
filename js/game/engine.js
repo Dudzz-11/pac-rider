@@ -255,13 +255,11 @@ function formatTime(seconds) {
 manageTimer();
 
 function retryGame() {
-    // 1. Calcula qual será a próxima música (avançando 1 e voltando para 0 se passar do limite)
+ 
     const nextTrack = (currentGameTrack + 1) % gamePlaylist.length;
     
-    // 2. Salva o índice da PRÓXIMA música no sessionStorage para o navegador lembrar após o reload
     sessionStorage.setItem("currentGameTrack", nextTrack);
     
-    // 3. Recarrega a página (isso vai resetar as peças, mapa, vidas, tudo automaticamente!)
     location.reload();
 }
 
