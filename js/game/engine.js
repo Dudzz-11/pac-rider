@@ -17,6 +17,10 @@ let isInvincible = false;
 
 const livesText = document.getElementById("lives");
 
+const timerText = document.getElementById("timer");
+let startTime = parseInt(localStorage.getItem("pacRiderTime")) || 0;
+let timerInterval = null;
+
 function takeDamage() {
     if (isInvincible) return;
 
@@ -40,9 +44,12 @@ function resetPlayerPosition() {
 };
 
 function gameOver() {
+    isGameOver = true;
+    clearInterval(timerInterval);
+    localStorage.removeItem("pacRiderTime");
     alert("Game Over! Você perdeu todas as vidas.");
     location.reload();
-};
+}
 
 let collectedPieces = 0
 
@@ -255,16 +262,64 @@ function checkMotoclubCollision() {
 
     if (externalCollision(player, motoclubImg)) {
         if (collectedPieces >= 5) {
-            isGameOver = true;
+            isGameOver = true; 
+            clearInterval(timerInterval);
 
-            alert("VOCÊ CONSEGUIU! A gangue está reunida.");
-
-            location.reload();
+            const victoryScreen = document.getElementById("victoryScreen");
+            const finalTimeDisplay = document.getElementById("finalTimeDisplay");
+            
+            if (victoryScreen && finalTimeDisplay) {
+                finalTimeDisplay.innerText = formatTime(startTime);
+                victoryScreen.style.display = "flex";
+            }
+            
+            localStorage.removeItem("pacRiderTime");
         } else {
             if (playerMovement.up) player.style.top = (textPositionToNumber(player.style.top) + playerSpeed) + "px";
             if (playerMovement.down) player.style.top = (textPositionToNumber(player.style.top) - playerSpeed) + "px";
             if (playerMovement.left) player.style.left = (textPositionToNumber(player.style.left) + playerSpeed) + "px";
             if (playerMovement.right) player.style.left = (textPositionToNumber(player.style.left) - playerSpeed) + "px";
         }
-    };
-};
+    }
+}
+
+function retryGame() {
+    location.reload();
+}
+
+function goToMenu() {
+    window.location.href = "index.html";
+}
+
+function startTimer() {
+    if (timerInterval) clearInterval(timerInterval);
+
+    timerInterval = setInterval(() => {
+        if (!isGameOver) {
+            startTime++;
+            localStorage.setItem("pacRiderTime", startTime);
+            if (timerText) timerText.innerText = formatTime(startTime);
+        }
+    }, 1000);
+}
+
+function manageTimer() {
+    if (timerInterval !== null) return;
+
+    timerInterval = setInterval(() => {
+        if (!isGameOver) {
+            startTime++;
+            if (timerText) {
+                timerText.innerText = formatTime(startTime);
+            }
+        }
+    }, 1000);
+}
+
+function formatTime(seconds) {
+    const mins = Math.floor(seconds / 60);
+    const secs = seconds % 60;
+    return `${mins}:${secs.toString().padStart(2, '0')}`;
+}
+
+manageTimer();

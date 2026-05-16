@@ -16,7 +16,7 @@ player.style.top = (spawn.y * cellSize) + "px";
 game.appendChild(player);
 
 function playerMovement() {
-
+    if (isGameOver) return;
     window.getComputedStyle(player);
 
     if (playerMovement.up) {

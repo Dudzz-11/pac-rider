@@ -13,9 +13,21 @@
         <img src="assets/img/items/piston.png" alt="número de peças coletadas">
         <p id="collectedParts">0</p>
         <img src="assets/img/items/time.png" alt="timer">
-        <p>0:00</p>
+        <p id="timer">0:00</p>
     </aside>
     <main id="game">
+        <div id="victoryScreen" class="victory">
+            <div class="victoryBox">
+                <h2>BOM TRABALHO!</h2>
+                <p>Você recuperou as peças do MC.</p>
+                <div class="info" style="justify-content: center; margin: 20px 0;">
+                    <p>Tempo da run: <span id="finalTimeDisplay" style="color: orange;"> 00:00</span></p>
+                </div>
+
+                <button class="btn" onclick="retryGame()">Tentar novamente</button>
+                <button class="btn" onclick="goToMenu()">Menu Principal </button>
+            </div>
+        </div>
     </main>
     <script src="js/game/engine.js"></script>
     <script src="js/game/obstacle.js"></script>

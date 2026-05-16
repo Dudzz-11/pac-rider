@@ -10,7 +10,7 @@ const cell = map[row][col];
 
 const motoclubImg = document.createElement("img");
 motoclubImg.id = "motoclub-gate";
-motoclubImg.src = "assets/img/buildings/dead-riders-mc-block.png";
+motoclubImg.src = "assets/img/buildings/dead-riders-mc-block1.png";
 
 motoclubImg.style.width = "100px";
 motoclubImg.style.height = "100px";

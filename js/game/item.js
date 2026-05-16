@@ -57,6 +57,7 @@ for (let i = 0; i < collectibleImages.length; i++) {
 };
 
 function checkCollectiblesCollision() {
+    if (isGameOver) return;
     collectibles.forEach(obj => {
         if (obj.collected) return;
 
@@ -72,7 +73,7 @@ function checkCollectiblesCollision() {
             collectSound.play();
         }
         if (collectedPieces === 5) {
-            motoclubImg.src = "assets/img/buildings/dead-riders-mc.png";
+            motoclubImg.src = "assets/img/buildings/dead-riders-mc1.png";
             console.log("Motoclube Desbloqueado!");
         }
 

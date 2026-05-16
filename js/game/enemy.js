@@ -91,6 +91,7 @@ function isPathBlocked(element, direction, speed) {
 };
 
 function updateEnemies() {
+    if (isGameOver) return;
     enemys.forEach((enemy, enemyIndex) => {
         const enemyElement = enemy.element;
         const enemyX = textPositionToNumber(enemyElement.style.left);
