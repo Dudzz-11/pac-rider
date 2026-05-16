@@ -1,14 +1,14 @@
 const game = document.getElementById("game");
 
-const soundDamage  = new Audio("assets/audio/sound-click-effect.mp3");
-const soundVictory = new Audio("assets/audio/sound-win.mp3");
+const soundDamage  = new Audio("./assets/audio/sound-click-effect.mp3");
+const soundVictory = new Audio("./assets/audio/sound-win.mp3");
 soundDamage.volume  = 0.5;
 soundVictory.volume = 0.7;
 
 const gamePlaylist = [
-    new Audio("assets/audio/music-game.mp3"),
-    new Audio("assets/audio/music-game2.mp3"),
-    new Audio("assets/audio/music-game3.mp3")
+    new Audio("./assets/audio/music-game.mp3"),
+    new Audio("./assets/audio/music-game2.mp3"),
+    new Audio("./assets/audio/music-game3.mp3")
 ];
 let currentGameTrack = 0;
 gamePlaylist.forEach(music => music.volume = 0.15);
