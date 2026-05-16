@@ -5,7 +5,7 @@ const textStart = document.querySelector(".textStart");
 const displayName = document.getElementById("displayName");
 const rankingList = document.getElementById("rankingList");
 
-const motoSound = new Audio("../assets/audio/sound-engine-menu.mp3");
+const motoSound = new Audio("./assets/audio/sound-engine-menu.mp3");
 motoSound.volume = 0.8;
 
 const inputUserLogin = document.getElementById("usuarioLogin");
@@ -24,9 +24,9 @@ let users = JSON.parse(localStorage.getItem("users")) || [];
 
 
 const playlist = [
-    new Audio("../assets/audio/music-game.mp3"),
-    new Audio("../assets/audio/music-game2.mp3"),
-    new Audio("../assets/audio/music-game3.mp3")
+    new Audio("./assets/audio/music-game.mp3"),
+    new Audio("./assets/audio/music-game2.mp3"),
+    new Audio("./assets/audio/music-game3.mp3")
 ];
 
 let currentTrack = 0;
