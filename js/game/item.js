@@ -1,9 +1,9 @@
 const collectibleImages = [
-    "./assets/img/items/engine.png",
-    "./assets/img/items/exhaust.png",
-    "./assets/img/items/headers.png",
-    "./assets/img/items/piston.png",
-    "./assets/img/items/wheel.png"
+    "assets/img/items/engine.png",
+    "assets/img/items/exhaust.png",
+    "assets/img/items/headers.png",
+    "assets/img/items/piston.png",
+    "assets/img/items/wheel.png"
 ];
 
 const collectSound = new Audio("../assets/audio/sound-collect.mp3");
