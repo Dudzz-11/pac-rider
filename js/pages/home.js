@@ -102,8 +102,8 @@ function renderRanking() {
     }
 
     const medals = [
-        "assets/img/icon1-player.png",
-        "assets/img/icon2-player.png",
+        "assets/img/icon6-player.png",
+        "assets/img/icon5-player.png",
         "assets/img/icon3-player.png"
     ];
 
