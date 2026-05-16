@@ -6,7 +6,7 @@ const collectibleImages = [
     "assets/img/items/wheel.png"
 ];
 
-const collectSound = new Audio("../assets/audio/sound-collect.mp3");
+const collectSound = new Audio("./assets/audio/sound-collect.mp3");
 
 const collectedPartsText = document.getElementById("collectedParts");
 
