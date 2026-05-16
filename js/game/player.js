@@ -1,6 +1,6 @@
 const player = document.createElement("img");
 
-const soundEngine = new Audio("../assets/audio/sound-bike-ingame.mp3");
+const soundEngine = new Audio("./assets/audio/sound-bike-ingame.mp3");
 soundEngine.volume = 0.4;
 
 player.id = "player";
