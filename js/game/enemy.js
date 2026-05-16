@@ -41,7 +41,6 @@ for (let row = 0; row < rows; row++) {
 
 emptyCellsEnemy.sort(() => Math.random() - 0.5);
 
-
 for (let i = 0; i < enemyImages.length; i++) {
     const cell = emptyCellsEnemy[i];
     const enemy = document.createElement("img");
@@ -118,20 +117,17 @@ function updateEnemies() {
         if (chaseXDirection && !xChaseBlocked) moveDx = chaseDx;
         if (chaseYDirection && !yChaseBlocked) moveDy = chaseDy;
 
-        // Slide vertical com commitment quando X está bloqueado
         const currentSlideYDirection = enemy.slideY > 0 ? "down" : "up";
         const slideYStillValid = enemy.slideY !== 0 && !isPathBlocked(enemyElement, currentSlideYDirection, speed);
 
         if (xChaseBlocked && chaseXDirection) {
             if (!slideYStillValid) {
-                // Pick com lookahead de uma célula: prefere direção com mais espaço livre
                 const hasUpClearance   = !isPathBlocked(enemyElement, "up",   cellSize);
                 const hasDownClearance = !isPathBlocked(enemyElement, "down", cellSize);
                 if      (hasUpClearance && hasDownClearance) enemy.slideY = playerY <= enemyY ? -speed : speed;
                 else if (hasUpClearance)                     enemy.slideY = -speed;
                 else if (hasDownClearance)                   enemy.slideY =  speed;
                 else {
-                    // Sem clearance de uma célula, fallback ao check imediato
                     const canMoveUp   = !isPathBlocked(enemyElement, "up",   speed);
                     const canMoveDown = !isPathBlocked(enemyElement, "down", speed);
                     if      (canMoveUp && canMoveDown) enemy.slideY = playerY <= enemyY ? -speed : speed;
@@ -144,7 +140,6 @@ function updateEnemies() {
             moveDy = enemy.slideY;
             if (enemy.slideY !== 0) enemy.slideYRemaining -= Math.abs(speed);
         } else if (enemy.slideY !== 0 && enemy.slideYRemaining > 0 && slideYStillValid) {
-            // Commitment: continua slide mesmo após X liberar, para passar da quina
             moveDy = enemy.slideY;
             enemy.slideYRemaining -= Math.abs(speed);
         } else {
@@ -152,7 +147,6 @@ function updateEnemies() {
             enemy.slideYRemaining = 0;
         }
 
-        // Slide horizontal com commitment quando Y está bloqueado e X natural não funciona
         const currentSlideXDirection = enemy.slideX > 0 ? "right" : "left";
         const slideXStillValid = enemy.slideX !== 0 && !isPathBlocked(enemyElement, currentSlideXDirection, speed);
 
@@ -183,7 +177,6 @@ function updateEnemies() {
             enemy.slideXRemaining = 0;
         }
 
-        // Tenta diagonal; se colidir, tenta só X, depois só Y (corner sliding)
         const intendedX = enemyX + moveDx;
         const intendedY = enemyY + moveDy;
 
@@ -194,19 +187,16 @@ function updateEnemies() {
         enemyElement.style.top  = intendedY + "px";
 
         if (isCollidingWithWall(enemyElement) || isOutOfBounds(enemyElement)) {
-            // Diagonal falhou: tenta só X
             enemyElement.style.left = intendedX + "px";
             enemyElement.style.top  = enemyY + "px";
             if (moveDx !== 0 && !isCollidingWithWall(enemyElement) && !isOutOfBounds(enemyElement)) {
                 actualDy = 0;
             } else {
-                // Tenta só Y
                 enemyElement.style.left = enemyX + "px";
                 enemyElement.style.top  = intendedY + "px";
                 if (moveDy !== 0 && !isCollidingWithWall(enemyElement) && !isOutOfBounds(enemyElement)) {
                     actualDx = 0;
                 } else {
-                    // Nada deu: reverte tudo e invalida slides
                     enemyElement.style.left = enemyX + "px";
                     enemyElement.style.top  = enemyY + "px";
                     enemy.slideX = 0;
@@ -218,7 +208,6 @@ function updateEnemies() {
             }
         }
 
-        // Sprite reflete o movimento que de fato aconteceu
         if      (actualDx > 0) enemyElement.src = "assets/img/enemys/cop-right-100.png";
         else if (actualDx < 0) enemyElement.src = "assets/img/enemys/cop-left-100.png";
         else if (actualDy > 0) enemyElement.src = "assets/img/enemys/cop-down-100.png";
@@ -226,33 +215,13 @@ function updateEnemies() {
     });
 };
 
-
-
 function resetAllEnemies() {
     enemys.forEach(enemy => {
-
-        map[enemy.row][enemy.col].type = null;
-
-        enemy.row = enemy.originRow;
-        enemy.col = enemy.originCol;
-
-        map[enemy.row][enemy.col].type = "enemy";
-
-        map[enemy.row][enemy.col].element.appendChild(enemy.element);
+        enemy.element.style.left = enemy.originX + "px";
+        enemy.element.style.top  = enemy.originY + "px";
+        enemy.slideX = 0;
+        enemy.slideY = 0;
+        enemy.slideXRemaining = 0;
+        enemy.slideYRemaining = 0;
     });
-};
-
-function takeDamage() {
-    if (isInvincible) return;
-
-    if (lives === 0) {
-        gameOver();
-    } else {
-        lives--;
-        if (livesText) livesText.innerText = lives;
-
-        resetPlayerPosition();
-        resetAllEnemies();
-        triggerInvincibility();
-    }
 };

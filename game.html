@@ -16,18 +16,31 @@
         <p id="timer">0:00</p>
     </aside>
     <main id="game">
+
         <div id="victoryScreen" class="victory">
             <div class="victoryBox">
                 <h2>BOM TRABALHO!</h2>
                 <p>Você recuperou as peças do MC.</p>
-                <div class="info" style="justify-content: center; margin: 20px 0;">
-                    <p>Tempo da run: <span id="finalTimeDisplay" style="color: orange;"> 00:00</span></p>
+                <div class="timeDisplay">
+                    ⏱ <span id="finalTimeDisplay">00:00</span>
                 </div>
-
-                <button class="btn" onclick="retryGame()">Tentar novamente</button>
-                <button class="btn" onclick="goToMenu()">Menu Principal </button>
+                <button class="btn btnPrimary" onclick="retryGame()">Tentar novamente</button>
+                <button class="btn btnSecondary" onclick="goToMenu()">Menu Principal</button>
             </div>
         </div>
+
+        <div id="defeatScreen" class="defeat">
+            <div class="defeatBox">
+                <h2>GAME OVER</h2>
+                <p>Você foi pego. Tente de novo!</p>
+                <div class="timeDisplay">
+                    ⏱ <span id="defeatTimeDisplay">00:00</span>
+                </div>
+                <button class="btn btnPrimary" onclick="retryGame()">Tentar novamente</button>
+                <button class="btn btnSecondary" onclick="goToMenu()">Menu Principal</button>
+            </div>
+        </div>
+
     </main>
     <script src="js/game/engine.js"></script>
     <script src="js/game/obstacle.js"></script>
